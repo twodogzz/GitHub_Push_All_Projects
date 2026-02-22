@@ -103,7 +103,7 @@ if (-not $CommitBody) {
     $CommitBody = "update"
 }
 
-$FinalCommitMessage = "$CommitType: $CommitBody"
+$FinalCommitMessage = "${CommitType}: $CommitBody"
 
 git commit -m "$FinalCommitMessage" | Out-Null
 Write-Host "Committed: $FinalCommitMessage" -ForegroundColor Green
