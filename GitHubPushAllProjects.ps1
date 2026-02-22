@@ -130,5 +130,11 @@ Write-Log "Committed changes in $($Repo.Name): $FinalCommitMessage"
 Write-Log "=== Push All Projects run complete ==="
 Write-Host "`nAll done." -ForegroundColor Yellow
 
-Write-Host "`nPress any key to exit..." -ForegroundColor Yellow
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# ---------- SAFE PAUSE (SKIPS IN ISE) ----------
+if ($Host.Name -notmatch "ISE") {
+    Write-Host "`nPress any key to exit..." -ForegroundColor Yellow
+    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+}
+else {
+    Write-Host "`nRunning inside PowerShell ISE - no pause available." -ForegroundColor DarkYellow
+}
