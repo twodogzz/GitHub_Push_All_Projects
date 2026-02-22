@@ -105,7 +105,7 @@ if (-not $CommitBody) {
 
 $FinalCommitMessage = "${CommitType}: $CommitBody"
 
-git commit -m "$FinalCommitMessage" | Out-Null
+git commit --message="$FinalCommitMessage" | Out-Null
 Write-Host "Committed: $FinalCommitMessage" -ForegroundColor Green
 Write-Log "Committed changes in $($Repo.Name): $FinalCommitMessage"
 
