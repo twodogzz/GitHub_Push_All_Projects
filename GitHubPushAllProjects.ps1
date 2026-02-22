@@ -120,6 +120,7 @@ Write-Log "Committed changes in $($Repo.Name): $FinalCommitMessage"
         Write-Host "Pushed successfully." -ForegroundColor Green
         Write-Log "Pushed $($Repo.Name)"
     }
+
     catch {
         Write-Host "Push failed." -ForegroundColor Red
         Write-Log "Push FAILED for $($Repo.Name)"
