@@ -73,10 +73,41 @@ foreach ($Repo in $Repos) {
     }
 
     # --- COMMIT MESSAGE ---
-    $CommitMsg = Read-Host "Enter commit message"
-    if (-not $CommitMsg) {
-        $CommitMsg = "Update"
-    }
+	# --- COMMIT TYPE SELECTION ---
+	Write-Host "`nSelect commit type:" -ForegroundColor Cyan
+	Write-Host "1) feat     - new feature"
+	Write-Host "2) fix      - bug fix"
+	Write-Host "3) refactor - code cleanup"
+	Write-Host "4) docs     - documentation update"
+	Write-Host "5) chore    - maintenance"
+	Write-Host "6) other    - custom type"
+
+	$typeChoice = Read-Host "Enter number (1-6)"
+
+	switch ($typeChoice) {
+		"1" { $CommitType = "feat" }
+		"2" { $CommitType = "fix" }
+		"3" { $CommitType = "refactor" }
+		"4" { $CommitType = "docs" }
+		"5" { $CommitType = "chore" }
+		"6" { $CommitType = Read-Host "Enter custom commit type" }
+		default { 
+			Write-Host "Invalid choice. Defaulting to 'chore'." -ForegroundColor Yellow
+			$CommitType = "chore"
+		}
+	}
+
+# --- COMMIT MESSAGE BODY ---
+$CommitBody = Read-Host "Enter commit message"
+if (-not $CommitBody) {
+    $CommitBody = "update"
+}
+
+$FinalCommitMessage = "$CommitType: $CommitBody"
+
+git commit -m "$FinalCommitMessage" | Out-Null
+Write-Host "Committed: $FinalCommitMessage" -ForegroundColor Green
+Write-Log "Committed changes in $($Repo.Name): $FinalCommitMessage"
 
     git commit -m "$CommitMsg" | Out-Null
     Write-Host "Committed." -ForegroundColor Green
@@ -97,3 +128,6 @@ foreach ($Repo in $Repos) {
 
 Write-Log "=== Push All Projects run complete ==="
 Write-Host "`nAll done." -ForegroundColor Yellow
+
+Write-Host "`nPress any key to exit..." -ForegroundColor Yellow
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
