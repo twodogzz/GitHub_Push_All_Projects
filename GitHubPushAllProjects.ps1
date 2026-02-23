@@ -109,7 +109,7 @@ git commit --message="$FinalCommitMessage" | Out-Null
 Write-Host "Committed: $FinalCommitMessage" -ForegroundColor Green
 Write-Log "Committed changes in $($Repo.Name): $FinalCommitMessage"
 
-    git commit -m "$CommitMsg" | Out-Null
+    git commit --message="$CommitMsg" | Out-Null
     Write-Host "Committed." -ForegroundColor Green
     Write-Log "Committed changes in $($Repo.Name): $CommitMsg"
 
